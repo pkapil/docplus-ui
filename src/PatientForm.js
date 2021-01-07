@@ -5,10 +5,7 @@ import "./PatientForm.css";
 
 function PatientForm() {
   const [formSchema, setformSchema] = useState();
-
-  const [uiSchema, setuiSchema] = useState({
-    "ui:order": ["*"],
-  });
+  const [uiSchema, setuiSchema] = useState({});
   const [formData, setFormData] = React.useState({});
 
   useEffect(() => {
@@ -16,8 +13,9 @@ function PatientForm() {
       const request = await axios.get("http://localhost:9000/forms/patient");
       delete request.data.$schema;
       setformSchema(request.data);
-      uiSchema["ui:order"].unshift(...request.data["ui:order"]);
-      setuiSchema(uiSchema);
+      const tempSchema = { "ui:order": ["*"] };
+      tempSchema["ui:order"].unshift(...request.data["ui:order"]);
+      setuiSchema(tempSchema);
       console.log(JSON.stringify(uiSchema));
       return request;
     }
