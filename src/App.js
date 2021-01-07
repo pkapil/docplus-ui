@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import PatientForm from "./PatientForm";
+import NavBar from "./NavBar";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
 function App() {
+  const classes = {
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: 20,
+      textAlign: "center",
+      fontFamily: "Roboto",
+    },
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar />
+      <div className={classes.root}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <Paper className={classes.paper}>xs=12 sm=6</Paper>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Paper className={classes.paper}>
+              <PatientForm />
+            </Paper>
+          </Grid>
+        </Grid>
+      </div>
     </div>
   );
 }
