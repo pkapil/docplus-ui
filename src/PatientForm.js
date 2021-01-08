@@ -11,7 +11,9 @@ function PatientForm({ id }) {
 
   useEffect(() => {
     async function getSchema() {
-      const request = await axios.get("http://localhost:9000/forms/patient");
+      const request = await axios.get(
+        "https://docplus-api.herokuapp.com/forms/patient"
+      );
       delete request.data.$schema;
       setformSchema(request.data);
       const tempSchema = { "ui:order": ["*"] };
@@ -20,7 +22,7 @@ function PatientForm({ id }) {
       console.log(JSON.stringify(uiSchema));
       if (Id) {
         const requestPatient = await axios.get(
-          "http://localhost:9000/api/patients/" + `${id}`
+          "https://docplus-api.herokuapp.com/api/patients/" + `${id}`
         );
         setFormData(requestPatient.data);
       }
@@ -38,7 +40,7 @@ function PatientForm({ id }) {
     console.log(e.formData);
 
     if (Id) {
-      const url = "http://localhost:9000/api/patients/" + `${Id}`;
+      const url = "https://docplus-api.herokuapp.com/api/patients/" + `${Id}`;
       axios
         .put(url, e.formData)
         .then(function (response) {
@@ -48,7 +50,7 @@ function PatientForm({ id }) {
           console.log(error);
         });
     } else {
-      const url = "http://localhost:9000/api/patients";
+      const url = "https://docplus-api.herokuapp.com/api/patients";
 
       axios
         .post(url, e.formData)
