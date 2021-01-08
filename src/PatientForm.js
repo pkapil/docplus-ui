@@ -3,7 +3,8 @@ import Form from "@rjsf/material-ui";
 import axios from "axios";
 import "./PatientForm.css";
 
-function PatientForm() {
+function PatientForm({ id }) {
+  const [Id, setId] = useState(id);
   const [formSchema, setformSchema] = useState();
   const [uiSchema, setuiSchema] = useState({});
   const [formData, setFormData] = React.useState({});
@@ -17,17 +18,47 @@ function PatientForm() {
       tempSchema["ui:order"].unshift(...request.data["ui:order"]);
       setuiSchema(tempSchema);
       console.log(JSON.stringify(uiSchema));
+      if (Id) {
+        const requestPatient = await axios.get(
+          "http://localhost:9000/api/patients/" + `${id}`
+        );
+        setFormData(requestPatient.data);
+      }
       return request;
     }
     getSchema();
   }, []);
 
   const handleForm = (e) => {
+    console.log(e.formData);
     setFormData(e.formData);
   };
 
   const onSubmit = (e) => {
     console.log(e.formData);
+
+    if (Id) {
+      const url = "http://localhost:9000/api/patients/" + `${Id}`;
+      axios
+        .put(url, e.formData)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      const url = "http://localhost:9000/api/patients";
+
+      axios
+        .post(url, e.formData)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
 
   return (
@@ -40,6 +71,7 @@ function PatientForm() {
           uiSchema={uiSchema}
           onSubmit={onSubmit}
           // liveValidate={true}
+          noHtml5Validate
         />
       ) : (
         <div>Loading ...</div>
