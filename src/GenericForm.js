@@ -11,8 +11,8 @@ function PatientForm({ id, type, title }) {
   const [uiSchema, setuiSchema] = useState({});
   const [formData, setFormData] = React.useState({});
 
-  // const rootUrl = "https://docplus-api.herokuapp.com";
-  const rootUrl = "http://localhost:8080";
+  const rootUrl = "https://docplus-api.herokuapp.com";
+  // const rootUrl = "http://localhost:8080";
   const apiUrlForFormSchema = `${rootUrl}` + "/forms/" + `${type}`;
   const apiUrlForSpecifcEntity = `${rootUrl}` + "/api/" + `${type}` + "s/" + `${id}`;
   const apiUrl = `${rootUrl}` + "/api/" + `${type}` + "s";
