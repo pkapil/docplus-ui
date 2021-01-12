@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import Form from "@rjsf/material-ui";
 import axios from "axios";
 import "./GenericForm.css";
+import Typography from '@material-ui/core/Typography';
 
-function PatientForm({ id ,type}) {
+
+function PatientForm({ id, type, title }) {
   const [Id, setId] = useState(id);
   const [formSchema, setformSchema] = useState();
   const [uiSchema, setuiSchema] = useState({});
@@ -11,9 +13,9 @@ function PatientForm({ id ,type}) {
 
   // const rootUrl = "https://docplus-api.herokuapp.com";
   const rootUrl = "http://localhost:8080";
-  const apiUrlForFormSchema = `${rootUrl}`+"/forms/"+`${type}`;
-  const apiUrlForSpecifcEntity = `${rootUrl}`+"/api/"+`${type}`+"s/" + `${id}`;
-  const apiUrl = `${rootUrl}`+"/api/"+`${type}`+"s";
+  const apiUrlForFormSchema = `${rootUrl}` + "/forms/" + `${type}`;
+  const apiUrlForSpecifcEntity = `${rootUrl}` + "/api/" + `${type}` + "s/" + `${id}`;
+  const apiUrl = `${rootUrl}` + "/api/" + `${type}` + "s";
 
   useEffect(() => {
     async function getSchema() {
@@ -72,6 +74,10 @@ function PatientForm({ id ,type}) {
 
   return (
     <div className="patient__form">
+
+      <Typography variant="h4" gutterBottom>
+        {title}
+      </Typography>
       {formSchema ? (
         <Form
           schema={formSchema}
@@ -83,8 +89,8 @@ function PatientForm({ id ,type}) {
           noHtml5Validate
         />
       ) : (
-        <div>Loading ...</div>
-      )}
+          <div>Loading ...</div>
+        )}
     </div>
   );
 }
