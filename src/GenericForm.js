@@ -1,28 +1,37 @@
 import React, { useState, useEffect } from "react";
 import Form from "@rjsf/material-ui";
 import axios from "axios";
-import "./PatientForm.css";
+import "./GenericForm.css";
 
-function PatientForm({ id }) {
+function PatientForm({ id ,type}) {
   const [Id, setId] = useState(id);
   const [formSchema, setformSchema] = useState();
   const [uiSchema, setuiSchema] = useState({});
   const [formData, setFormData] = React.useState({});
 
+  // const rootUrl = "https://docplus-api.herokuapp.com";
+  const rootUrl = "http://localhost:8080";
+  const apiUrlForFormSchema = `${rootUrl}`+"/forms/"+`${type}`;
+  const apiUrlForSpecifcEntity = `${rootUrl}`+"/api/"+`${type}`+"s/" + `${id}`;
+  const apiUrl = `${rootUrl}`+"/api/"+`${type}`+"s";
+
   useEffect(() => {
     async function getSchema() {
       const request = await axios.get(
-        "https://docplus-api.herokuapp.com/forms/patient"
+        apiUrlForFormSchema
       );
       delete request.data.$schema;
       setformSchema(request.data);
-      const tempSchema = { "ui:order": ["*"] };
-      tempSchema["ui:order"].unshift(...request.data["ui:order"]);
+      const tempSchema = { "ui:order": [] };
+      console.log(request.data)
+      console.log(request.data['ui:order'])
+      console.log(tempSchema['ui:order'])
+      tempSchema['ui:order'].push(...request.data['ui:order']);
       setuiSchema(tempSchema);
       console.log(JSON.stringify(uiSchema));
       if (Id) {
         const requestPatient = await axios.get(
-          "https://docplus-api.herokuapp.com/api/patients/" + `${id}`
+          apiUrlForSpecifcEntity
         );
         setFormData(requestPatient.data);
       }
@@ -40,7 +49,7 @@ function PatientForm({ id }) {
     console.log(e.formData);
 
     if (Id) {
-      const url = "https://docplus-api.herokuapp.com/api/patients/" + `${Id}`;
+      const url = apiUrlForSpecifcEntity
       axios
         .put(url, e.formData)
         .then(function (response) {
@@ -50,10 +59,8 @@ function PatientForm({ id }) {
           console.log(error);
         });
     } else {
-      const url = "https://docplus-api.herokuapp.com/api/patients";
-
       axios
-        .post(url, e.formData)
+        .post(apiUrl, e.formData)
         .then(function (response) {
           console.log(response);
         })
