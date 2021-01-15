@@ -1,5 +1,5 @@
 import "./App.css";
-import Demo from "./demo";
+import AppLayout from "./AppLayout";
 
 function App() {
   const classes = {
@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="App">
-      <Demo />
+      <AppLayout />
     </div>
   );
 }
