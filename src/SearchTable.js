@@ -13,8 +13,8 @@ export default function TabPanel(props) {
       history.push("/patients/" + `${a[0]}`);
     },
   };
-  // const rootUrl = "https://docplus-api.herokuapp.com";
-  const rootUrl = "http://localhost:8080";
+  const rootUrl = "https://docplus-api.herokuapp.com";
+  // const rootUrl = "http://localhost:8080";
   const apiUrl = `${rootUrl}` + "/api/patients";
   const [data, setData] = useState([]);
 
