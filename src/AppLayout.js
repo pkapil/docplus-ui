@@ -20,8 +20,20 @@ import MailIcon from "@material-ui/icons/Mail";
 import GenericForm from "./GenericForm";
 import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
-import { Router, Route, Link } from "react-router-dom";
+import {
+  Router,
+  Route,
+  Switch,
+  Link,
+  useRouteMatch,
+  useParams,
+} from "react-router-dom";
 import { createBrowserHistory } from "history";
+import TabbedPane from "./TabbedPane";
+import PageviewIcon from "@material-ui/icons/Pageview";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
+import SearchTable from "./SearchTable";
 
 const drawerWidth = 240;
 
@@ -153,57 +165,65 @@ export default function MiniDrawer() {
           </div>
           <Divider />
           <List>
-            <ListItem button key="Patient Managment" component={Link} to="/">
+            <ListItem button key="Lookup" component={Link} to="/search">
+              <ListItemIcon>
+                <PageviewIcon />
+              </ListItemIcon>
+              <ListItemText primary="Lookup" />
+            </ListItem>
+            <ListItem button key="Entry" component={Link} to="/">
               <ListItemIcon>
                 <PermContactCalendarIcon />
               </ListItemIcon>
-              <ListItemText primary="Patient Managment" />
+              <ListItemText primary="Entry" />
             </ListItem>
-            <ListItem
-              button
-              key="Hospital Managment"
-              component={Link}
-              to="/hospital"
-            >
+            <ListItem button key="Encounter" component={Link} to="/encounter">
               <ListItemIcon>
                 <LocalHospitalIcon />
               </ListItemIcon>
-              <ListItemText primary="Hospital Managment" />
+              <ListItemText primary="Encounter" />
             </ListItem>
-
-            {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+            <ListItem button key="Exit" component={Link} to="/exit">
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary="Exit" />
             </ListItem>
-          ))} */}
+            <ListItem button key="Billing" component={Link} to="/billing">
+              <ListItemIcon>
+                <MonetizationOnIcon />
+              </ListItemIcon>
+              <ListItemText primary="Billing" />
+            </ListItem>
           </List>
           <Divider />
           <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+            {["Configuration", "Employee", "Other details"].map(
+              (text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              )
+            )}
           </List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route
-            exact
-            path="/"
-            component={() => (
-              <GenericForm type="patient" title="Patient procurement" />
-            )}
-          />
-          {/* <Route path="/hospital" component={Grid} /> */}
+          <Route exact path="/" component={() => <TabbedPane />} />
           <Route
             path="/hospital"
             component={() => (
               <GenericForm type="hospital" title="Hospital information" />
+            )}
+          />
+          <Route path="/search" component={() => <SearchTable />} />
+          <Route
+            path="/patient/:id"
+            component={() => (
+              <GenericForm type="patient" title="Patient information" />
             )}
           />
         </main>

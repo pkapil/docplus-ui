@@ -3,6 +3,14 @@ import Form from "@rjsf/material-ui";
 import axios from "axios";
 import "./GenericForm.css";
 import Typography from "@material-ui/core/Typography";
+import {
+  Router,
+  Link,
+  Switch,
+  Route,
+  useRouteMatch,
+  useParams,
+} from "react-router-dom";
 
 function PatientForm({ id, type, title }) {
   const [Id, setId] = useState(id);
@@ -23,12 +31,8 @@ function PatientForm({ id, type, title }) {
       delete request.data.$schema;
       setformSchema(request.data);
       const tempSchema = { "ui:order": [] };
-      console.log(request.data);
-      console.log(request.data["ui:order"]);
-      console.log(tempSchema["ui:order"]);
       tempSchema["ui:order"].push(...request.data["ui:order"]);
       setuiSchema(tempSchema);
-      console.log(JSON.stringify(uiSchema));
       if (Id) {
         const requestPatient = await axios.get(apiUrlForSpecifcEntity);
         setFormData(requestPatient.data);
@@ -50,18 +54,14 @@ function PatientForm({ id, type, title }) {
       const url = apiUrlForSpecifcEntity;
       axios
         .put(url, e.formData)
-        .then(function (response) {
-          console.log(response);
-        })
+        .then(function (response) {})
         .catch(function (error) {
           console.log(error);
         });
     } else {
       axios
         .post(apiUrl, e.formData)
-        .then(function (response) {
-          console.log(response);
-        })
+        .then(function (response) {})
         .catch(function (error) {
           console.log(error);
         });
