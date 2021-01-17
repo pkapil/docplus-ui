@@ -167,25 +167,25 @@ export default function MiniDrawer() {
           <List>
             <ListItem button key="Lookup" component={Link} to="/search">
               <ListItemIcon>
-                <PageviewIcon />
+                <PageviewIcon color="primary" />
               </ListItemIcon>
               <ListItemText primary="Lookup" />
             </ListItem>
             <ListItem button key="Entry" component={Link} to="/">
               <ListItemIcon>
-                <PermContactCalendarIcon />
+                <PermContactCalendarIcon style={{ color: "green" }} />
               </ListItemIcon>
               <ListItemText primary="Entry" />
             </ListItem>
             <ListItem button key="Encounter" component={Link} to="/encounter">
               <ListItemIcon>
-                <LocalHospitalIcon />
+                <LocalHospitalIcon color="secondary" />
               </ListItemIcon>
               <ListItemText primary="Encounter" />
             </ListItem>
             <ListItem button key="Exit" component={Link} to="/exit">
               <ListItemIcon>
-                <ExitToAppIcon />
+                <ExitToAppIcon color="action" />
               </ListItemIcon>
               <ListItemText primary="Exit" />
             </ListItem>
