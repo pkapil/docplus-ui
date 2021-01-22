@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Form from "@rjsf/material-ui";
-import axios from "axios";
+import axios from "./axios";
 import "./GenericForm.css";
 import Typography from "@material-ui/core/Typography";
 import {
@@ -18,12 +18,9 @@ function PatientForm({ id, type, title }) {
   const [uiSchema, setuiSchema] = useState({});
   const [formData, setFormData] = React.useState({});
 
-  const rootUrl = "https://docplus-api.herokuapp.com";
-  // const rootUrl = "http://localhost:8080";
-  const apiUrlForFormSchema = `${rootUrl}` + "/forms/" + `${type}`;
-  const apiUrlForSpecifcEntity =
-    `${rootUrl}` + "/api/" + `${type}` + "s/" + `${id}`;
-  const apiUrl = `${rootUrl}` + "/api/" + `${type}` + "s";
+  const apiUrlForFormSchema = "/forms/" + `${type}`;
+  const apiUrlForSpecifcEntity = "/api/" + `${type}` + "s/" + `${id}`;
+  const apiUrl = "/api/" + `${type}` + "s";
 
   useEffect(() => {
     async function getSchema() {

@@ -1,6 +1,6 @@
 import MUIDataTable from "mui-datatables";
 import React, { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import axios from "./axios";
 import { useHistory } from "react-router-dom";
 
 export default function TabPanel(props) {
@@ -13,9 +13,7 @@ export default function TabPanel(props) {
       history.push("/patients/" + `${a[0]}`);
     },
   };
-  const rootUrl = "https://docplus-api.herokuapp.com";
-  // const rootUrl = "http://localhost:8080";
-  const apiUrl = `${rootUrl}` + "/api/patients";
+  const apiUrl = "/api/patients";
   const [data, setData] = useState([]);
 
   useEffect(() => {
