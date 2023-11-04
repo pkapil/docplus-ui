@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://docplus-api.herokuapp.com/",
+  baseURL: "http://udtnjoycqs.us17.qoddiapp.com/",
   timeout: 10000,
 });
 
